@@ -11,13 +11,16 @@ let mainWindow;
 
 const createWindow = () => {
   // Create the browser window.
-  mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow(
+    /*{
     width: 800,
     height: 600,
-  });
-
+  }*/
+  );
+  let path = __dirname;
+  path = __dirname.substring(0, __dirname.lastIndexOf('\\'));
   // and load the index.html of the app.
-  mainWindow.loadURL('../renderer-process/index.html');
+  mainWindow.loadURL(`file://${path}/sections/index.html`);
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
