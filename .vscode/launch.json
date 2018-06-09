@@ -22,7 +22,7 @@
           "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-forge-vscode-win.cmd"
         },
         "runtimeArgs": [
-          "${workspaceRoot}/main.js",
+          "${workspaceRoot}/renderer-process/index.js",
           "--remote-debugging-port=9222"
         ],
         //"webRoot":"${workspaceRoot}"

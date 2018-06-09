@@ -1,0 +1,11 @@
+html,
+body,
+div,
+h1,h2,h3,h4,h5,h6,
+ul,li,table,thead,tbody{
+    margin: 0px;
+    padding: 0px;
+    font-family: "Microsoft YaHei",Arial,Tahoma,sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+}

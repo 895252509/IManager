@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, globalShortcut } from 'electron';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -10,6 +10,17 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 let mainWindow;
 
 const createWindow = () => {
+  globalShortcut.register('Ctrl+Shift+I', () => {
+    if (mainWindow.webContents.isDevToolsOpened()) {
+      mainWindow.webContents.closeDevTools();
+    } else {
+      mainWindow.webContents.openDevTools();
+    }
+  });
+  globalShortcut.register('F5', () => {
+    mainWindow.reload();
+  });
+
   // Create the browser window.
   mainWindow = new BrowserWindow(
     /*{
@@ -21,7 +32,7 @@ const createWindow = () => {
   path = __dirname.substring(0, __dirname.lastIndexOf('\\'));
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${path}/sections/index.html`);
-
+  mainWindow.setMenu(null);
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
