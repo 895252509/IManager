@@ -1,0 +1,32 @@
+/*
+  基础组件 样式
+*/
+
+/*
+  菜单栏
+  .nav
+*/
+.nav{
+  padding: 0px 50px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.nav>a{
+  
+}
+
+/*
+  按钮 
+  .btn
+*/
+.btn{
+  display: inline-block;
+  font-size: 1.1em;
+  line-height: 2em;
+  padding: 0px 16px;
+  border: 1px solid #a7a7a7;
+  text-decoration: none;
+  border-radius: 0.25em;
+  color: rgba(20, 20, 20, 0.815);
+}

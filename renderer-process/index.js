@@ -9,7 +9,7 @@ $(window).on('resize', () => {
   const height = window.innerHeight;
   const maindom = $('#main');
   maindom[0].style.width = `${width}px`;
-  maindom[0].style.height = `${height}px`;
+  maindom[0].style.height = `${height - 100}px`;
   const zr = zrender.init($('#main')[0]);
   const circle = new zrender.Circle({
     shape: {
@@ -23,4 +23,8 @@ $(window).on('resize', () => {
     },
   });
   zr.add(circle);
+});
+
+$(() => {
+  $(window).trigger('resize');
 });
