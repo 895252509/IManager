@@ -28,5 +28,9 @@ export default class MindMap {
     });
   }
 
-
+  resize(opts) {
+    this.dom.style.width = opts.width || 100;
+    this.dom.style.height = opts.height || 100;
+    this.zr.resize(opts);
+  }
 }

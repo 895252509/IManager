@@ -16,9 +16,13 @@ $(window).on('resize', (e) => {
   const height = window.innerHeight - 100;
   /* $(mindmapDom).prop('width', `${width}px`);
   $(mindmapDom).prop('height', `${height}px`); */
-  mindmapDom.style.width = width;
+  /* mindmapDom.style.width = width;
   mindmapDom.style.height = height;
-  /*  */$(mindmapDom).resize();
+  $(mindmapDom).resize(); */
+  mindMap.resize({
+    width,
+    height,
+  });
 });
 
 $(() => {
