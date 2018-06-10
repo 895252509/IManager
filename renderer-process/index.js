@@ -1,30 +1,27 @@
-const zrender = require('zrender');
-const $ = require('jquery');
-/* maindom.attr('width', `${width}px`);
-maindom.attr('height', `${height}px`);
-*/
+/**
+ * @author zx
+ * @since 2018/06/10
+ */
 
-$(window).on('resize', () => {
+import MindMap from '../worker/mindmap/mindmap.js';
+
+const $ = require('jquery');
+
+const mindmapDom = $('#main')[0];
+const mindMap = new MindMap(mindmapDom);
+$(mindMap.dom);
+$(window).on('resize', (e) => {
+  e.preventDefault();
   const width = window.innerWidth;
-  const height = window.innerHeight;
-  const maindom = $('#main');
-  maindom[0].style.width = `${width}px`;
-  maindom[0].style.height = `${height - 100}px`;
-  const zr = zrender.init($('#main')[0]);
-  const circle = new zrender.Circle({
-    shape: {
-      cx: 150,
-      cy: 50,
-      r: 40,
-    },
-    style: {
-      fill: 'none',
-      stroke: '#F00',
-    },
-  });
-  zr.add(circle);
+  const height = window.innerHeight - 100;
+  /* $(mindmapDom).prop('width', `${width}px`);
+  $(mindmapDom).prop('height', `${height}px`); */
+  mindmapDom.style.width = width;
+  mindmapDom.style.height = height;
+  /*  */$(mindmapDom).resize();
 });
 
 $(() => {
   $(window).trigger('resize');
 });
+
