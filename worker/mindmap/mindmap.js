@@ -35,18 +35,17 @@ export default class MindMap {
     this.zr.add(circle);
     // this.zr.addHover(circle);
     this.zr.on('mousedown', (e) => {
-      e.cancelBubble = true;
-      this.status = {
-        isClick: true,
-        clickX: e.offsetX,
-        clickY: e.offsetY,
-        clickShap: null,
-      };
+      this.status.isClick = true;
+      this.status.clickX = e.offsetX;
+      this.status.clickY = e.offsetY;
     });
 
     this.zr.on('mousemove', (e) => {
+      if (this.status.clickShap) return true;
       if (this.status.isClick) {
-        if (!this.status.dragShap && !this.status.clickShap) {
+        if (!this.status.dragShap) {
+          if (e.offsetX - this.status.clickX === 0 ||
+             e.offsetY - this.status.clickY === 0) return false;
           const rect = new zrender.Rect({
             shape: {
               x: this.status.clickX,
@@ -56,8 +55,12 @@ export default class MindMap {
             },
             draggable: true,
           });
+
           rect.on('mousedown', (event) => {
             this.status.clickShap = event.target;
+          });
+          rect.on('mouseup', () => {
+            this.status.clickShap = null;
           });
           this.status.dragShap = rect;
           this.zr.add(rect);
@@ -72,6 +75,7 @@ export default class MindMap {
           });
         }
       }
+      return true;
     });
     this.zr.on('mouseup', () => {
       this.status = {
