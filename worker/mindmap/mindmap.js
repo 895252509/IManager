@@ -5,6 +5,8 @@
  * @since 2018/06/10
  */
 const zrender = require('zrender');
+
+
 // const $ = require('jquery');
 
 export default class MindMap {
@@ -19,30 +21,20 @@ export default class MindMap {
     this.zr = zrender.init(this.dom);
     // 对象属性
     this.status = {
-      isClick: false,
+      isMouseDown: false,
       clickX: 0,
       clickY: 0,
     };
 
-    const circle = new zrender.Circle({
-      shape: {
-        cx: 150,
-        cy: 50,
-        r: 40,
-      },
-      draggable: true,
-    });
-    this.zr.add(circle);
-    // this.zr.addHover(circle);
     this.zr.on('mousedown', (e) => {
-      this.status.isClick = true;
+      this.status.isMouseDown = true;
       this.status.clickX = e.offsetX;
       this.status.clickY = e.offsetY;
     });
 
     this.zr.on('mousemove', (e) => {
       if (this.status.clickShap) return true;
-      if (this.status.isClick) {
+      if (this.status.isMouseDown) {
         if (!this.status.dragShap) {
           if (e.offsetX - this.status.clickX === 0 ||
              e.offsetY - this.status.clickY === 0) return false;
@@ -62,6 +54,9 @@ export default class MindMap {
           rect.on('mouseup', () => {
             this.status.clickShap = null;
           });
+          rect.on('mousemove', () => {
+
+          });
           this.status.dragShap = rect;
           this.zr.add(rect);
         } else {
@@ -79,7 +74,7 @@ export default class MindMap {
     });
     this.zr.on('mouseup', () => {
       this.status = {
-        isClick: false,
+        isMouseDown: false,
         clickX: 0,
         clickY: 0,
         dragShap: null,

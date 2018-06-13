@@ -12,7 +12,7 @@ const mindMap = new MindMap(mindmapDom);
 $(mindMap.dom);
 $(window).on('resize', (e) => {
   e.preventDefault();
-  const width = window.innerWidth;
+  const width = window.innerWidth - 16;
   const height = window.innerHeight - 100;
   /* $(mindmapDom).prop('width', `${width}px`);
   $(mindmapDom).prop('height', `${height}px`); */
