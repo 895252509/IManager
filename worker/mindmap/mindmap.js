@@ -38,6 +38,21 @@ export default class MindMap {
         if (!this.status.dragShap) {
           if (e.offsetX - this.status.clickX === 0 ||
              e.offsetY - this.status.clickY === 0) return false;
+          const func = () => Math.floor(Math.random() * 255);
+          const linearColor = new zrender.LinearGradient(0, 0, 0, 1, [{
+            offset: 0,
+            color: `rgba(${func()},${func()},${func()},1)`,
+          }, {
+            offset: 1,
+            color: `rgba(${func()},${func()},${func()},0.5)`,
+          }]);
+          const linearColor1 = new zrender.LinearGradient(0, 0, 0, 1, [{
+            offset: 0,
+            color: 'rgba(255,0,0,0.5)',
+          }, {
+            offset: 1,
+            color: '#efe3ff',
+          }]);
           const rect = new zrender.Rect({
             shape: {
               x: this.status.clickX,
@@ -45,11 +60,24 @@ export default class MindMap {
               width: e.offsetX - this.status.clickX,
               height: e.offsetY - this.status.clickY,
             },
+            style: {
+              stroke: '#ffc8aa',
+              fill: linearColor,
+            },
             draggable: true,
+            z: 1,
           });
 
           rect.on('mousedown', (event) => {
             this.status.clickShap = event.target;
+            /*  */
+            this.zr.clearHover();
+            this.zr.addHover(event.target, {
+              style: {
+                fill: linearColor1,
+                stroke: '#ffc800',
+              },
+            });
           });
           rect.on('mouseup', () => {
             this.status.clickShap = null;
@@ -67,6 +95,7 @@ export default class MindMap {
               width: e.offsetX - this.status.clickX,
               height: e.offsetY - this.status.clickY,
             },
+            z: 2,
           });
         }
       }

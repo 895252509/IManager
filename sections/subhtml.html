@@ -6,11 +6,39 @@
   <link rel="stylesheet" href="../style/base/base.css">
   <link rel="stylesheet" href="../style/base/page-elements.css">
 
+  <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+  <script type="text/javascript" src="../node_modules/zrender/dist/zrender.js"></script>
+  <script type="text/javascript" src="../worker/demo.js"></script>
 </head>
 <body onselectstart="return false;">
   <div class="nav">
     <a href="javascript:window.history.back();" class="btn">上一页面</a>
   </div>
-  <h1>new page</h1>
+  <div class="example-container" style="width:800px;height:400px"></div>  
+  <script>  
+
+
+    const str='[{"段":"794-810","value":5},' +  
+        '{"段":"815-823","value":5.6},' +  
+        '{"段":"840-849","value":3},' +  
+        '{"段":"855-860","value":7},' +  
+        '{"段":"877-893","value":2.6},' +  
+        '{"段":"920-945","value":8.3},' +  
+        '{"段":"955-962","value":4.5},' +  
+        '{"段":"970-977","value":6},' +  
+        '{"段":"980-988","value":7.1},' +  
+        '{"段":"993-1007","value":3.3},' +  
+        '{"段":"1008-1011","value":8.1},' +  
+        '{"段":"1020-1035","value":6.3}]';  
+        const jsonData=JSON.parse(str);  
+
+    $('.example-container').dirCard({  
+      data:jsonData,  
+      wellSec:'段',  
+      showCol:'value',  
+      barColor:['rgba(114, 172, 209, 1)','rgba(114, 172, 209, 0.5)'],  
+      backgroundColor:'#ccc'  
+    });  
+  </script>
 </body>
 </html>
