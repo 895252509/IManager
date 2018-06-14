@@ -80,8 +80,20 @@ export default class MindMap {
         dragShap: null,
       };
     });
+    /*
+    this.zr.on('mousewheel', (event) => {
+      const origin = [event.offsetX, event.offsetY];
+      const sc = event.wheelDelta / 50;
+      const list = this.zr.storage.getDisplayList();
+      for (const sub of list) {
+        const oldo = sub.origin;
+        sub.origin = origin;
+        sub.scale = sub.scale.map(num => num + sc);
+        sub.dirty();
+      }
+    });
+    */
   }
-
   /**
    * 提供当外部DOM改变尺寸时，改变绑定DOM以及zrender对象的尺寸
    */
