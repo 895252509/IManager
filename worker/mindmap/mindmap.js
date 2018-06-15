@@ -38,16 +38,7 @@ export default class MindMap {
         if (!this.status.dragShap) {
           if (e.offsetX - this.status.clickX === 0 ||
              e.offsetY - this.status.clickY === 0) return false;
-/*
-          const func = () => Math.floor(Math.random() * 255);
-          const linearColor = new zrender.LinearGradient(0, 0, 0, 1, [{
-            offset: 0,
-            color: `rgba(${func()},${func()},${func()},1)`,
-          }, {
-            offset: 1,
-            color: `rgba(${func()},${func()},${func()},0.5)`,
-          }]);
-*/
+
           const rect = new BaseComponent(this, {
             shape: {
               x: this.status.clickX,
@@ -59,6 +50,7 @@ export default class MindMap {
 
           this.status.dragShap = rect;
         } else {
+          if (this.checkCoincide(this.status.dragShap)) return true;
           this.status.dragShap.resize({
             width: e.offsetX - this.status.clickX,
             height: e.offsetY - this.status.clickY,
@@ -67,6 +59,7 @@ export default class MindMap {
       }
       return true;
     });
+
     this.zr.on('mouseup', () => {
       this.status.status = {
         isMouseDown: false,
@@ -97,5 +90,16 @@ export default class MindMap {
     this.dom.style.width = opts.width || 100;
     this.dom.style.height = opts.height || 100;
     this.zr.resize(opts);
+  }
+
+  checkCoincide(path) {
+    const otherPath = this.zr.storage.getDisplayList();
+    let resu;
+    for (const ipath of otherPath) {
+      if (ipath === path.path) continue;
+      resu = path.path.getBoundingRect().intersect(ipath.getBoundingRect());
+      if (resu) return true;
+    }
+    return false;
   }
 }
