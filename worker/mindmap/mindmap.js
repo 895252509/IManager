@@ -7,8 +7,6 @@
 import Status from './Core/Status';
 import BaseComponent from './Component/BaseComponent';
 
-const zrender = require('zrender');
-
 // const $ = require('jquery');
 
 export default class MindMap {
@@ -92,14 +90,4 @@ export default class MindMap {
     this.zr.resize(opts);
   }
 
-  checkCoincide(path) {
-    const otherPath = this.zr.storage.getDisplayList();
-    let resu;
-    for (const ipath of otherPath) {
-      if (ipath === path.path) continue;
-      resu = path.path.getBoundingRect().intersect(ipath.getBoundingRect());
-      if (resu) return true;
-    }
-    return false;
-  }
 }

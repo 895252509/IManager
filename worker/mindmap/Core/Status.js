@@ -4,7 +4,7 @@
  * @description zrender 状态对象，记录操作状态
  */
 
-const util = require('zrender').util;
+// const util = require('zrender').util;
 
 export default class Status {
   constructor() {
