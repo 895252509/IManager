@@ -7,7 +7,9 @@
 import Status from './Core/Status';
 import BaseComponent from './Component/BaseComponent';
 
-// const $ = require('jquery');
+const $ = require('jquery');
+
+const zrender = require('zrender');
 
 export default class MindMap {
   /**
@@ -47,8 +49,8 @@ export default class MindMap {
           });
 
           this.status.dragShap = rect;
+          this.zr.add(rect);
         } else {
-          if (this.checkCoincide(this.status.dragShap)) return true;
           this.status.dragShap.resize({
             width: e.offsetX - this.status.clickX,
             height: e.offsetY - this.status.clickY,

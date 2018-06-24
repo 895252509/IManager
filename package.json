@@ -49,9 +49,10 @@
     }
   },
   "dependencies": {
-    "electron-compile": "^6.4.2",
+    "electron-compile": "^6.4.3",
     "electron-squirrel-startup": "^1.0.0",
-    "fabric": "^2.3.3"
+    "zgraphy": "^0.0.3",
+    "zrender": "^4.0.4"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
