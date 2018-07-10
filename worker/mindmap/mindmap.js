@@ -4,12 +4,8 @@
  * @author zx
  * @since 2018/06/10
  */
-import Status from './Core/Status';
-import BaseComponent from './Component/BaseComponent';
-
-const $ = require('jquery');
-
 const zrender = require('zrender');
+const $ = require('jquery');
 
 export default class MindMap {
   /**
@@ -22,24 +18,56 @@ export default class MindMap {
     // 对象属性
     this.zr = zrender.init(this.dom);
     // 对象属性
-    this.status = new Status();
+    this.status = {
+      isClick: false,
+      clickX: 0,
+      clickY: 0,
+    };
 
+    const circle = new zrender.Circle({
+      shape: {
+        cx: 150,
+        cy: 50,
+        r: 40,
+      },
+      draggable: true,
+    });
+    this.zr.add(circle);
+    // this.zr.addHover(circle);
     this.zr.on('mousedown', (e) => {
-      this.status.status = {
-        isMouseDown: true,
-        clickX: e.offsetX,
-        clickY: e.offsetY,
-      };
+      this.status.isClick = true;
+      this.status.clickX = e.offsetX;
+      this.status.clickY = e.offsetY;
+
+      this.openDialog("setattr");
     });
 
     this.zr.on('mousemove', (e) => {
       if (this.status.clickShap) return true;
-      if (this.status.isMouseDown) {
+      if (this.status.isClick) {
         if (!this.status.dragShap) {
           if (e.offsetX - this.status.clickX === 0 ||
              e.offsetY - this.status.clickY === 0) return false;
+          const rect = new zrender.Rect({
+            shape: {
+              x: this.status.clickX,
+              y: this.status.clickY,
+              width: e.offsetX - this.status.clickX,
+              height: e.offsetY - this.status.clickY,
+            },
+            draggable: true,
+          });
 
-          const rect = new BaseComponent(this, {
+          rect.on('mousedown', (event) => {
+            this.status.clickShap = event.target;
+          });
+          rect.on('mouseup', () => {
+            this.status.clickShap = null;
+          });
+          this.status.dragShap = rect;
+          this.zr.add(rect);
+        } else {
+          this.status.dragShap.attr({
             shape: {
               x: this.status.clickX,
               y: this.status.clickY,
@@ -47,42 +75,20 @@ export default class MindMap {
               height: e.offsetY - this.status.clickY,
             },
           });
-
-          this.status.dragShap = rect;
-          this.zr.add(rect);
-        } else {
-          this.status.dragShap.resize({
-            width: e.offsetX - this.status.clickX,
-            height: e.offsetY - this.status.clickY,
-          });
         }
       }
       return true;
     });
-
     this.zr.on('mouseup', () => {
-      this.status.status = {
-        isMouseDown: false,
+      this.status = {
+        isClick: false,
         clickX: 0,
         clickY: 0,
         dragShap: null,
       };
     });
-
-    /*
-    this.zr.on('mousewheel', (event) => {
-      const origin = [event.offsetX, event.offsetY];
-      const sc = event.wheelDelta / 50;
-      const list = this.zr.storage.getDisplayList();
-      for (const sub of list) {
-        const oldo = sub.origin;
-        sub.origin = origin;
-        sub.scale = sub.scale.map(num => num + sc);
-        sub.dirty();
-      }
-    });
-    */
   }
+
   /**
    * 提供当外部DOM改变尺寸时，改变绑定DOM以及zrender对象的尺寸
    */
@@ -92,4 +98,27 @@ export default class MindMap {
     this.zr.resize(opts);
   }
 
+  /**
+   * 提供对话框用来设置图形属性
+   */
+  openDialog(dialogName){
+    if($(`#${dialogName}`).length === 0){
+      $("body").append(`<div id="${dialogName}" draggable="true"></div>`);
+      $(`#${dialogName}`).load("dialog.html",(e)=>{
+        
+      });
+      let offsetClickX = 0;
+      let offsetClickY = 0;
+      $(`#${dialogName}`).on("dragstart", (e)=>{
+        offsetClickX = e.clientX - $(e.target).find(".dialog")[0].offsetLeft;
+        offsetClickY = e.clientY - $(e.target).find(".dialog")[0].offsetTop;
+      });
+      $(`#${dialogName}`).on("dragend", (e)=>{
+        $(e.target).find(".dialog").css("left",`${e.clientX - offsetClickX}px`);
+        $(e.target).find(".dialog").css("top",`${e.clientY - offsetClickY}px`);
+      });
+    }else{
+
+    }
+  }
 }

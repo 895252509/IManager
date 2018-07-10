@@ -12,3 +12,7 @@ ul,li,table,thead,tbody{
   -khtml-user-select: none; 
   user-select: none;
 }
+
+ul{
+  list-style: none;
+}
