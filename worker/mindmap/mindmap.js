@@ -64,12 +64,10 @@ export default class MindMap {
       return true;
     });
     this.zr.on('mouseup', () => {
-      this.status = {
-        isClick: false,
-        clickX: 0,
-        clickY: 0,
-        dragShap: null,
-      };
+      this.status.isClick= false;
+      this.status.clickX=0;
+      this.status.clickY= 0;
+      this.status.dragShap= null;
     });
   }
 
@@ -85,11 +83,30 @@ export default class MindMap {
   /**
    * 提供对话框用来设置图形属性
    */
-  openDialog(dialogName){
-    if($(`#${dialogName}`).length === 0){
+  openDialog(dialogName,attr){
+    let jqDom = $(`#${dialogName}`);
+    if(jqDom.length === 0){
       $("body").append(`<div id="${dialogName}" draggable="true"></div>`);
       $(`#${dialogName}`).load("dialog.html",(e)=>{
-        
+
+        $(`#${dialogName}`).find("#sizeWidth").val(attr.shape.width);
+        $(`#${dialogName}`).find("#sizeHeight").val(attr.shape.height);
+        $(`#${dialogName}`).find("#posX").val(attr.shape.x + attr.position.x);
+        $(`#${dialogName}`).find("#posY").val(attr.shape.y + attr.position.y);
+
+        $(`#${dialogName}`).find("input").each((index,dom)=>{
+          $(dom).change(()=>{
+            let attr = {
+              shape:{
+                x: $(`#${dialogName}`).find("#posX").val(),
+                y: $(`#${dialogName}`).find("#posY").val(),
+                width: $(`#${dialogName}`).find("#sizeWidth").val(),
+                height: $(`#${dialogName}`).find("#sizeHeight").val(),
+              }
+            }
+            this.status.hoverShap.attr(attr);
+          });
+        });
       });
       let offsetClickX = 0;
       let offsetClickY = 0;
@@ -101,8 +118,12 @@ export default class MindMap {
         $(e.target).find(".dialog").css("left",`${e.clientX - offsetClickX}px`);
         $(e.target).find(".dialog").css("top",`${e.clientY - offsetClickY}px`);
       });
-    }else{
 
+    }else{
+      jqDom.find("#sizeWidth").val(attr.shape.width);
+      jqDom.find("#sizeHeight").val(attr.shape.height);
+      jqDom.find("#posX").val(attr.shape.x + attr.position.x);
+      jqDom.find("#posY").val(attr.shape.y + attr.position.y);
     }
   }
 }

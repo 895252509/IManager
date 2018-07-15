@@ -11,7 +11,8 @@ export default class BaseComponent {
 
     this.path_data.on("mousedown",(e)=>{
       mm.status.clickShap = this;
-      mm.openDialog("attr");
+      mm.status.hoverShap = this;
+      mm.openDialog("attr",this.getSizes());
     });
     this.path_data.on('mouseup', () => {
       mm.status.clickShap = null;
@@ -31,6 +32,24 @@ export default class BaseComponent {
   }
 
   getSizes(){
-    return this.path_data.shape;    
+    return {
+      shape: this.path_data.shape,
+      position: {
+        x: this.path_data.position[0],
+        y: this.path_data.position[1],
+      },
+
+    }
+  }
+
+  attr(attr){
+    this.path_data.attr({
+      shape:{
+        width: attr.shape.width,
+        height: attr.shape.height,
+        x: attr.shape.x - this.path_data.position[0],
+        y: attr.shape.y - this.path_data.position[1],
+      }
+    });
   }
 }
