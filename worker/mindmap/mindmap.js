@@ -1,4 +1,6 @@
 import BaseComponent from './Component/BaseComponent';
+import TextWidget from '../layout/widget/textwidget';
+
 
 /**
  * @description 脑图对象
@@ -8,6 +10,7 @@ import BaseComponent from './Component/BaseComponent';
  */
 const zrender = require('zrender');
 const $ = require('jquery');
+const uuidv4 = require('uuid/v4');
 
 export default class MindMap {
   /**
@@ -28,6 +31,10 @@ export default class MindMap {
       clickY: 0,
     };
 
+    this.uuid = uuidv4();
+
+    this.widget = new TextWidget();
+
     this.zr.on('mousedown', (e) => {
       this.status.isClick = true;
       this.status.clickX = e.offsetX;
@@ -39,7 +46,7 @@ export default class MindMap {
       if (this.status.isClick) {
         if (!this.status.dragShap) {
           if (e.offsetX - this.status.clickX === 0 ||
-             e.offsetY - this.status.clickY === 0) return false;
+            e.offsetY - this.status.clickY === 0) return false;
 
           let com = new BaseComponent(this,{
             shape: {
