@@ -3,7 +3,7 @@
  * @since 2018/07/17
  */
 
-export default class OWidget{
+export default class OWidget extends HTMLElement{
   constructor(params) {
     
     this.id = "";
