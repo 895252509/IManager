@@ -1,8 +1,9 @@
-import uuidv4 from 'uuid/v4';
+import OObj from '../baseclass/oobj';
 
-export default class OControl{
+export default class OControl extends OObj{
   constructor(temp) {
-    this.id = uuidv4();
+    super();
+
     this.templete = temp;
     this.jqdom = null;
   }

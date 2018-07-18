@@ -12,6 +12,8 @@ class TabControl extends OControl{
 
     this.hoverPage = null;
 
+    this._id_main = `${this.id}_main`;
+
     this.templete = `
     <article id="${this.id}" class="tab-control">
       <header>
@@ -30,7 +32,7 @@ class TabControl extends OControl{
     this.pages.push(page);
     const title = $(`<p data-id="${page.id}">${page.title}</p>`);
     this.jqdom.find("header").append(title);
-    this.jqdom.find("main").append(page.jqdom);
+    this.jqdom.find(`#${this._id_main}`).append(page.jqdom);
     title.on("click",(e)=>{
       this.selectPage(page);
     });

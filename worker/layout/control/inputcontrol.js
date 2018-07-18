@@ -7,10 +7,9 @@ export default class InputControl extends OControl{
     this.value = value;
     this.name =name;
     this.labelStr = label;
-    this.templete = `
-    <label for="${this.id}">${this.labelStr}
-    </label><input id="${this.id}" value="${this.value}" name="${this.name}"/>
-    `
+    this.templete = 
+    `<label for="${this.id}">${this.labelStr}
+    </label><input id="${this.id}" value="${this.value}" name="${this.name}"/>`
     this.jqdom = $(this.templete);
 
     const labelDom = this.jqdom.filter(`label`);
