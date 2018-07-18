@@ -17,6 +17,10 @@ ul{
   list-style: none;
 }
 
+input:focus{
+  box-shadow: 0px 0px 2px rgb(92, 127, 89);
+}
+
 .clearfix{
   zoom: 1;
 }

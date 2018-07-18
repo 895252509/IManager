@@ -19,7 +19,7 @@ class TabControl extends OControl{
       <header>
 
       </header>
-      <main>
+      <main id="${this._id_main}">
 
       </main>
     </article>

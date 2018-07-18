@@ -10,9 +10,10 @@ export default class DialogCompoent extends OCompoent{
     this._id_main = `${this.id}_main`;
 
     this.templete = 
-    `<aside role="dialog" class="dialog hide" id="${this.id}">
-      <header>
-        ${this.title}
+    `<aside role="dialog" class="dialog hide" id="${this.id}" draggable="true">
+      <header >
+        <span class="dialog-title">${this.title}</span>
+        <span class="dialog-btn-close">X</span>
       </header>
       <main id="${this._id_main}">
 
@@ -20,6 +21,21 @@ export default class DialogCompoent extends OCompoent{
     </aside>`;
 
     this.jqdom = $(this.templete);
+
+    this.jqdom.find(`.dialog-btn-close`).on("click",()=>{
+      this.jqdom.addClass("hide");
+    });
+
+    let offsetClickX = 0;
+    let offsetClickY = 0;
+    this.jqdom.on("dragstart", (e)=>{
+      offsetClickX = e.clientX - $(e.target)[0].offsetLeft;
+      offsetClickY = e.clientY - $(e.target)[0].offsetTop;
+    });
+    this.jqdom.on("dragend", (e)=>{
+      $(e.target).css("left",`${e.clientX - offsetClickX}px`);
+      $(e.target).css("top",`${e.clientY - offsetClickY}px`);
+    });
   }
 
   add(comp){
