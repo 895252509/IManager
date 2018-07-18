@@ -8,7 +8,7 @@
 
   <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
   <script type="text/javascript" src="../node_modules/zrender/dist/zrender.js"></script>
-  <!-- <script type="text/javascript" src="../worker/demo.js"></script> -->
+  <script type="text/javascript" src="../renderer-process/subpage.js"></script>
 </head>
 <body onselectstart="return false;">
   <div class="nav">
@@ -16,31 +16,4 @@
   </div>
   
 </body>
-<script>
-      const $ = require('jquery');
-  $(document).ready(function (){
-    const uuidv4 = require('uuid/v4');
-
-
-    console.time("create");
-    for(let i=0;i< 1000;i++){
-
-      const id = uuidv4();
-      const dom = document.createElement("div");
-      dom.id = id;
-      
-      $("body").append(dom);
-
-      for(let j=0;j<100;j++){
-        const childid = uuidv4();
-        const childdom = document.createElement("div");
-        childdom.id = childid;
-        dom.appendChild(childdom);
-      }
-
-    }
-
-    console.timeEnd("create");
-  });
-  </script>
 </html>

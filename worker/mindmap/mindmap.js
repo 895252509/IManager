@@ -1,5 +1,6 @@
 import BaseComponent from './Component/BaseComponent';
 import TextWidget from '../layout/widget/textwidget';
+import InputControl from '../layout/control/inputcontrol';
 
 
 /**
@@ -32,8 +33,6 @@ export default class MindMap {
     };
 
     this.uuid = uuidv4();
-
-    this.widget = new TextWidget();
 
     this.zr.on('mousedown', (e) => {
       this.status.isClick = true;

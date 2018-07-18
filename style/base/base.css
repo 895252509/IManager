@@ -1,6 +1,6 @@
 html,
 body,
-div,a,
+div,a,p,
 h1,h2,h3,h4,h5,h6,
 ul,li,table,thead,tbody{
   margin: 0px;
@@ -15,4 +15,13 @@ ul,li,table,thead,tbody{
 
 ul{
   list-style: none;
+}
+
+.clearfix{
+  zoom: 1;
+}
+
+.clearfix:after{
+  content: ""; 
+  clear: both; 
 }
