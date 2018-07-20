@@ -1,43 +1,53 @@
-import OControl from './ocontrol';
 import $ from 'jquery';
+import OControl from './ocontrol';
+import CTest from '../core/Eventable';
 
-export default class InputControl extends OControl{
-  constructor(label="",name="",value="") {
+export default class InputControl extends OControl {
+  constructor(label = '', name = '', value = '') {
     super();
+    // Eventable.call(this);
+    const test = new CTest();
+    test.randomize();
+
     this.value = value;
-    this.name =name;
+    this.name = name;
     this.labelStr = label;
-    this.templete = 
-    `<label for="${this.id}">${this.labelStr}
-    </label><input id="${this.id}" value="${this.value}" name="${this.name}"/>`
+    this.id_input = `${this.id}_input`;
+    this.templete =
+    `<div id="${this.id}">
+      <label for="${this.id_input}">${this.labelStr}</label>
+      <input id="${this.id_input}" value="${this.value}" name="${this.name}"/>
+    </div>`;
     this.jqdom = $(this.templete);
 
-    const labelDom = this.jqdom.filter(`label`);
-    const inputDom = this.jqdom.filter(`#${this.id}`);
+    const labelDom = this.jqdom.find('label');
+    const inputDom = this.jqdom.find(`#${this.id_input}`);
     labelDom.css({
-      "vertical-align" : "middle",
-      "margin-right" : "8px"
+      'vertical-align': 'middle',
+      'margin-right': '8px',
     });
 
     inputDom.css({
-      "border" : "1px solid",
-      "vertical-align" : "middle"
+      border: '1px solid',
+      'vertical-align': 'middle',
     });
+
+    inputDom.on('change', this.change);
   }
 
-  set val(val){
-    this.jqdom.filter(`#${this.id}`).val(val);
+  set val(val) {
+    this.jqdom.find(`#${this.id_input}`).val(val);
   }
 
-  get val(){
-    return this.jqdom.filter(`#${this.id}`).val();
+  get val() {
+    return this.jqdom.find(`#${this.id_input}`).val();
   }
 
-  set label(val){
-    this.jqdom.filter(`label`).html(val);
+  set label(val) {
+    this.jqdom.find('label').html(val);
   }
 
-  get label(){
-    return this.jqdom.filter(`label`).html();
+  get label() {
+    return this.jqdom.find('label').html();
   }
 }

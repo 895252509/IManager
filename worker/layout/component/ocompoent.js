@@ -1,9 +1,10 @@
 import OObj from '../baseclass/oobj';
 
-export default class OCompoent extends OObj{
-  constructor(params) {
+export default class OCompoent extends OObj {
+  constructor() {
     super();
 
-    
+    this.jqdom = null;
   }
+
 }
