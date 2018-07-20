@@ -13,6 +13,10 @@ ul,li,table,thead,tbody{
   user-select: none;
 }
 
+body{
+  overflow: hidden;
+}
+
 ul{
   list-style: none;
 }
@@ -32,4 +36,31 @@ input:focus{
 
 .hide{
   display: none !important;
+}
+
+/*
+  设置滚动条的样式
+*/
+::-webkit-scrollbar{
+  width:8px;
+  height:8px;
+}
+::-webkit-scrollbar-track{
+  background-color:rgba(175, 206, 77, 0.56);
+}
+::-webkit-scrollbar-thumb{
+  background-color:#ccc;
+  border-radius:5px;
+}
+::-webkit-scrollbar-thumb:hover{
+  background-color:#666;
+}
+::-webkit-scrollbar-corner{
+  background-color: #e0c5b0;
+  border-radius: 2px;
+  border: 1px solid rgba(212, 191, 191, 0.719);
+  box-shadow: 0px 0px 5px rgba(175, 206, 77, 0.56);
+}
+body ::-webkit-scrollbar-thumb{
+  background-color:#ddd;
 }
