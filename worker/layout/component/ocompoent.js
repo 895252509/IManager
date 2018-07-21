@@ -1,6 +1,6 @@
-import OObj from '../baseclass/oobj';
+import EventableObj from '../core/Eventable';
 
-export default class OCompoent extends OObj {
+export default class OCompoent extends EventableObj {
   constructor() {
     super();
 

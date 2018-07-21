@@ -1,6 +1,6 @@
-import OObj from '../baseclass/oobj';
+import EventableObj from '../core/Eventable';
 
-export default class OControl extends OObj {
+export default class OControl extends EventableObj {
   constructor(temp) {
     super();
 

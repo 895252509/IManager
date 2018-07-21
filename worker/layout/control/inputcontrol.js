@@ -1,13 +1,9 @@
 import $ from 'jquery';
 import OControl from './ocontrol';
-import CTest from '../core/Eventable';
 
 export default class InputControl extends OControl {
   constructor(label = '', name = '', value = '') {
     super();
-    // Eventable.call(this);
-    const test = new CTest();
-    test.randomize();
 
     this.value = value;
     this.name = name;

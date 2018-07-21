@@ -1,32 +1,52 @@
+import OObj from '../baseclass/oobj';
 
-// export default class Eventable {
-//   constructor() {
-//     this.handler = [];
-//   }
-// }
-class CTest1 {
-  constructor() {
-    this.name = 'CTest1';
+class Handler{
+  constructor(eventtype, ehander){
+    this.eventtype = '';
+    this.EHandler = null;
+  }
+}
+  
+class Eventhandler{
+  constructor(){
+    this.isOnce = false;
+    this.handler = null; 
   }
 }
 
-// const calculatorMixin = Base => class extends Base {
-//   calc() {
-//     console.log(this);
-//   }
-// };
+class Eventtype{
+  constructor(){
+    this.MouseMove = 'mousemove';
+  
+    this.Click = 'click';
+  
+    this.Change= 'change';
+  }
+}
 
-const randomizerMixin = Base => class extends Base {
+const Eventable = Base => class extends Base {
   constructor() {
     super();
-    this.minx = '123';
+    
+    this._handlers = [];
   }
-  randomize() {
-    console.log(this);
+
+  on(eventtype, handler){
+    if( !(eventtype in Eventtype) ) return ; 
+    this._handlers.push(new Handler(eventtype, new Eventhandler(false, handler)));
+  }
+
+  once(eventtype, handler){
+    if( !(eventtype in Eventtype) ) return ; 
+    this._handlers.push(new Handler(eventtype, new Eventhandler(true, handler)));
+  }
+
+  trigger(){
+    
   }
 };
 
-export default class CTest extends randomizerMixin(CTest1) {
+export default class EventableObj extends Eventable(OObj) {
   constructor() {
     super();
     console.log(this);

@@ -2,9 +2,9 @@
  * @author zx
  * @since 2018/07/17
  */
-import OObj from '../baseclass/oobj';
+import EventableObj from '../core/Eventable';
  
-export default class OWidget extends OObj{
+export default class OWidget extends EventableObj{
   constructor(params) {
     super();
     
