@@ -27,6 +27,7 @@ class TabControl extends OControl {
   }
 
   addPage(page) {
+    page.parent = this;
     this.pages.push(page);
     const title = $(`<p data-id="${page.id}">${page.title}</p>`);
     this.jqdom.find('header').append(title);
@@ -74,6 +75,7 @@ class TabPage extends OControl {
   }
 
   add(cont) {
+    cont.parent = this;
     this.jqdom.append(cont.jqdom);
     return this;
   }

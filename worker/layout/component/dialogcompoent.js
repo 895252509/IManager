@@ -52,6 +52,7 @@ export default class DialogCompoent extends OCompoent {
    * @param {extends OObj} comp 一个控件对象
    */
   add(comp) {
+    comp.parent = this;
     this.jqdom.find(`#${this.id_main}`).append(comp.jqdom);
   }
 

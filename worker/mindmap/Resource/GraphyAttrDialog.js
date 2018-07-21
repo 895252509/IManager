@@ -12,10 +12,9 @@ export default class GraphyAttrDialog extends DialogCompoent {
 
     this.boxPosY = new InputControl('位置(y):', model ? model.height : 0);
 
-    this.boxPosX.change = e => this.change(e);
-    this.boxPosY.change = e => this.change(e);
-    this.boxWidth.change = e => this.change(e);
-    this.boxHeight.change = e => this.change(e);
+    this.boxPosX.on('change', (e) => {
+      console.log(e);
+    });
 
     const tab = new TabControl();
     tab.addPage(

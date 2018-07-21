@@ -4,5 +4,6 @@ export default class OObj{
   constructor() {
     this.id = uuid();
     this.templete = "";
+    this.parent = null;
   }
 }

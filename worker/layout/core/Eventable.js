@@ -1,26 +1,31 @@
 import OObj from '../baseclass/oobj';
-
-class Handler{
-  constructor(eventtype, ehander){
-    this.eventtype = '';
-    this.EHandler = null;
-  }
-}
   
 class Eventhandler{
-  constructor(){
-    this.isOnce = false;
-    this.handler = null; 
+  constructor(isOnce= false, handler= null){
+    this.isOnce = isOnce;
+    this.handler = handler; 
   }
 }
 
 class Eventtype{
   constructor(){
-    this.MouseMove = 'mousemove';
+    this.mousemove = 'mousemove';
   
-    this.Click = 'click';
+    this.click = 'click';
   
-    this.Change= 'change';
+    this.change= 'change';
+  }
+
+  static get change(){
+    return this.change;
+  }
+
+  static get mousemove(){
+    return this.change;
+  }
+
+  static get click(){
+    return this.change;
   }
 }
 
@@ -31,24 +36,47 @@ const Eventable = Base => class extends Base {
     this._handlers = [];
   }
 
+  static makeEventObject(el, e){
+    return {
+      e: e.e,
+      original: e.original,
+      path: e.path.push(el),
+    }
+  }
+
   on(eventtype, handler){
     if( !(eventtype in Eventtype) ) return ; 
-    this._handlers.push(new Handler(eventtype, new Eventhandler(false, handler)));
+    if(!this._handlers[eventtype])
+      this._handlers[eventtype] = [];
+    this._handlers[eventtype].push(new Eventhandler(false, handler));
   }
 
   once(eventtype, handler){
     if( !(eventtype in Eventtype) ) return ; 
-    this._handlers.push(new Handler(eventtype, new Eventhandler(true, handler)));
+    this._handlers[eventtype].push(new Eventhandler(false, handler));
   }
 
-  trigger(){
-    
+  trigger(eventtype, e){
+    if( !(eventtype in Eventtype) ) return ; 
+    if( this._handlers[eventtype] && this._handlers[eventtype].length !== 0 ){
+      for(let i= 0, size= this._handlers[eventtype].length;i< size; i++ ){
+        let hand =  this._handlers[eventtype][i];
+        hand.handler.call(this, e);
+        if(hand.isOnce){
+          this._handlers[eventtype].shift(i,1);
+          size--;
+          i--;
+        }
+      }
+    }
   }
 };
 
-export default class EventableObj extends Eventable(OObj) {
+class EventableObj extends Eventable(OObj) {
   constructor() {
     super();
     console.log(this);
   }
 }
+
+export {EventableObj, Eventable};

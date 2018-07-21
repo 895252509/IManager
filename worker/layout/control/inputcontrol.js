@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import OControl from './ocontrol';
+import Eventable from '../core/Eventable';
 
 export default class InputControl extends OControl {
   constructor(label = '', name = '', value = '') {
@@ -28,7 +29,11 @@ export default class InputControl extends OControl {
       'vertical-align': 'middle',
     });
 
-    inputDom.on('change', this.change);
+    inputDom.on('change', (e) => {
+      Eventable
+      this.trigger('change', e);
+      this.parent.trigger('change', e);
+    });
   }
 
   set val(val) {
