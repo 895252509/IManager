@@ -18,7 +18,7 @@ export default class BaseComponent {
       mm.status.clickShap = null;
     });
     this.path_data.on('drag', (e) => {
-      mm.openDialog("attr",this.getSizes());
+      mm.attrDia.model = this.getSizes();
     });
     mm.zr.add(this.path_data);
   }
