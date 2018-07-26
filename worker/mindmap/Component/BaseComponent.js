@@ -17,6 +17,9 @@ export default class BaseComponent {
     this.path_data.on('mouseup', () => {
       mm.status.clickShap = null;
     });
+    this.path_data.on('drag', (e) => {
+      mm.openDialog("attr",this.getSizes());
+    });
     mm.zr.add(this.path_data);
   }
 

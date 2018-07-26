@@ -30,9 +30,7 @@ export default class InputControl extends OControl {
     });
 
     inputDom.on('change', (e) => {
-      Eventable
       this.trigger('change', e);
-      this.parent.trigger('change', e);
     });
   }
 

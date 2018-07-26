@@ -31,6 +31,10 @@ export default class MindMap {
 
     this.attrDia = new GraphyAttrDialog('属性');
 
+    this.attrDia.on('change', () => {
+      this.status.hoverShap.attr(this.attrDia.model);
+    });
+
     this.uuid = uuidv4();
 
     this.zr.on('mousedown', (e) => {
@@ -91,25 +95,5 @@ export default class MindMap {
   openDialog(dialogName, attr) {
     this.attrDia.model = attr;
     this.attrDia.show();
-/*
-    if (jqDom.length === 0) {
-      $('body').append(`<div id="${dialogName}" draggable="true"></div>`);
-      $(`#${dialogName}`).load('dialog.html', () => {
-        $(`#${dialogName}`).find('input').each((index, dom) => {
-          $(dom).change(() => {
-            const attrs = {
-              shape: {
-                x: $(`#${dialogName}`).find('#posX').val(),
-                y: $(`#${dialogName}`).find('#posY').val(),
-                width: $(`#${dialogName}`).find('#sizeWidth').val(),
-                height: $(`#${dialogName}`).find('#sizeHeight').val(),
-              },
-            };
-            this.status.hoverShap.attr(attrs);
-          });
-        });
-      });
-    }
-    */
   }
 }

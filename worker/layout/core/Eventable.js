@@ -44,6 +44,7 @@ const Eventable = Base => class extends Base {
     }
   }
 
+  // 绑定事件
   on(eventtype, handler){
     if( !(eventtype in Eventtype) ) return ; 
     if(!this._handlers[eventtype])
@@ -51,11 +52,17 @@ const Eventable = Base => class extends Base {
     this._handlers[eventtype].push(new Eventhandler(false, handler));
   }
 
+  off(eventtype, handler){
+
+  }
+
+  // 绑定单次触发事件，触发后即删除
   once(eventtype, handler){
     if( !(eventtype in Eventtype) ) return ; 
     this._handlers[eventtype].push(new Eventhandler(false, handler));
   }
 
+  // 触发事件
   trigger(eventtype, e){
     if( !(eventtype in Eventtype) ) return ; 
     if( this._handlers[eventtype] && this._handlers[eventtype].length !== 0 ){
